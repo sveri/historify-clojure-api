@@ -1,0 +1,13 @@
+standard closp application
+
+sveri@sveri-lin:~/programme/wrk$ ./wrk -c 1 -t 1 -d 30 http://sveri.de:3000/api/browser_link
+Running 30s test @ http://sveri.de:3000/api/browser_link
+  1 threads and 1 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    31.49ms    3.53ms  70.38ms   85.34%
+    Req/Sec    31.76      4.47    40.00     78.00%
+  953 requests in 30.03s, 2.00MB read
+Requests/sec:     31.73
+Transfer/sec:     68.15KB
+
+

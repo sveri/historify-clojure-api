@@ -6,13 +6,14 @@
 
   :source-paths ["src/clj" "src/cljs" "src/cljc"]
 
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[org.clojure/clojure "1.9.0-alpha10"]
                  [org.clojure/clojurescript "1.7.170"]
 
                  [org.clojure/core.cache "0.6.4"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
 
                  [ring "1.4.0"]
+                 [ring/ring-json "0.4.0"]
                  [lib-noir "0.9.9"]
                  [ring/ring-anti-forgery "1.0.0"]
                  [compojure "1.4.0"]

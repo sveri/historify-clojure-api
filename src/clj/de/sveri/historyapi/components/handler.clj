@@ -1,8 +1,9 @@
 (ns de.sveri.historyapi.components.handler
-  (:require [compojure.core :refer [defroutes]]
+  (:require [compojure.core :refer [defroutes routes]]
             [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
             [ring.middleware.defaults :refer [site-defaults]]
+            [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.file-info :refer [wrap-file-info]]
             [ring.middleware.file :refer [wrap-file]]
             [compojure.route :as route]
@@ -30,23 +31,25 @@
            (assoc-in [:security :anti-forgery] xss-protection?)))
 
 (defn get-handler [config locale]
-  (-> (app-handler
-        (into [] (concat (when (:registration-allowed? config) [(registration-routes config)])
-                         ;; add your application routes here
-                         [(cc-routes config) (browserlink-routes config) home-routes (user-routes config) base-routes]))
-        ;; add custom middleware here
-        :middleware (load-middleware config (:tconfig locale))
-        :ring-defaults (mk-defaults false)
-        ;; add access rules here
-        :access-rules []
-        ;; serialize/deserialize the following data formats
-        ;; available formats:
-        ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
-        :formats [:json-kw :edn :transit-json])
-      ; Makes static assets in $PROJECT_DIR/resources/public/ available.
-      (wrap-file "resources")
-      ; Content-Type, Content-Length, and Last Modified headers for files in body
-      (wrap-file-info)))
+  (routes
+    (-> (wrap-json-response (browserlink-routes config)))
+    (-> (app-handler
+         (into [] (concat (when (:registration-allowed? config) [(registration-routes config)])
+                          ;; add your application routes here
+                          [(cc-routes config) home-routes (user-routes config) base-routes]))
+         ;; add custom middleware here
+         :middleware (load-middleware config (:tconfig locale))
+         :ring-defaults (mk-defaults false)
+         ;; add access rules here
+         :access-rules []
+         ;; serialize/deserialize the following data formats
+         ;; available formats:
+         ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
+         :formats [:json-kw :edn :transit-json])
+       ; Makes static assets in $PROJECT_DIR/resources/public/ available.
+       (wrap-file "resources")
+       ; Content-Type, Content-Length, and Last Modified headers for files in body
+       (wrap-file-info))))
 
 (defrecord Handler [config locale]
   comp/Lifecycle
