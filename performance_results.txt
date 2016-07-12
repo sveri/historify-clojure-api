@@ -51,3 +51,19 @@ Running 1m test @ http://sveri.de:3000/api/browser_link
   Non-2xx or 3xx responses: 2378
 Requests/sec:    509.20
 Transfer/sec:      0.98MB
+
+
+
+with only transit response wrapper middleware
+
+sveri@sveri-lin:~/programme/wrk$ ./wrk -c 20 -t 4 -d 60 http://sveri.de:3000/api/browser_link
+Running 1m test @ http://sveri.de:3000/api/browser_link
+  4 threads and 20 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    43.56ms   40.27ms   1.09s    94.31%
+    Req/Sec   128.94     38.68   190.00     76.62%
+  30779 requests in 1.00m, 54.82MB read
+  Non-2xx or 3xx responses: 2574
+Requests/sec:    512.55
+
+
