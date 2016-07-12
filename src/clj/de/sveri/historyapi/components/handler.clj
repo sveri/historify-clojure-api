@@ -12,6 +12,7 @@
             [de.sveri.historyapi.routes.browserlink :refer [browserlink-routes]]
             [de.sveri.historyapi.routes.cc :refer [cc-routes]]
             [de.sveri.historyapi.routes.user :refer [user-routes registration-routes]]
+            [ring.middleware.transit :refer [wrap-transit-response]]
             [de.sveri.historyapi.middleware :refer [load-middleware]]))
 
 (defroutes base-routes
@@ -32,7 +33,7 @@
 
 (defn get-handler [config locale]
   (routes
-    (-> (wrap-json-response (browserlink-routes config)))
+    (-> (wrap-transit-response (browserlink-routes config)))
     (-> (app-handler
          (into [] (concat (when (:registration-allowed? config) [(registration-routes config)])
                           ;; add your application routes here
