@@ -1,0 +1,8 @@
+{:jdbc-url               "jdbc:sqlite:./db/closp-crud-webinterface.sqlite"
+ :migrations-output-path "./resources/migrators/sqlite"
+ :clj-src                "src/clj"
+ :ns-db                  "de.sveri.historyapi.db"
+ :ns-db-entities         "de.sveri.historyapi.db.entities"
+ :ns-routes              "de.sveri.historyapi.routes"
+ :ns-layout              "de.sveri.historyapi.layout"
+ :templates              "resources/templates"}
