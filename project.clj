@@ -53,6 +53,8 @@
                  [datascript "0.13.3"]
                  [cljs-ajax "0.3.14"]
                  [ring-transit "0.1.6"]
+                 [com.layerware/hugsql "0.4.7"]
+                 [org.clojure/java.jdbc "0.6.2-alpha1"]
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
 
                  [net.tanesha.recaptcha4j/recaptcha4j "0.0.8"]

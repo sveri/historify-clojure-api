@@ -33,7 +33,7 @@
 
 (defn get-handler [config locale]
   (routes
-    (-> (wrap-transit-response (browserlink-routes config)))
+    (-> (wrap-json-response (browserlink-routes config)))
     (-> (app-handler
          (into [] (concat (when (:registration-allowed? config) [(registration-routes config)])
                           ;; add your application routes here
